@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace windows_pdf_print
@@ -105,6 +106,10 @@ namespace windows_pdf_print
           ref dummyArg,
           ref dummyArg
           );
+
+        /// To overcome OS disk flushing , we wait some time for PDF to appear on disk
+        if (!SpinWait.SpinUntil(() => File.Exists(outFile), 1000))
+          throw new TimeoutException("Output file did not exist in timely manner");
       }
       finally
       {
