@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28711.60
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "windows-pdf-print", "windows-pdf-print\windows-pdf-print.csproj", "{19F2EEBC-BC8F-4822-B239-3899A5CCBD03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "windows-pdf-print-test", "windows-pdf-print-test\windows-pdf-print-test.csproj", "{C4251B8B-3D23-4F55-A576-9C850536CF34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19F2EEBC-BC8F-4822-B239-3899A5CCBD03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F2EEBC-BC8F-4822-B239-3899A5CCBD03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F2EEBC-BC8F-4822-B239-3899A5CCBD03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F2EEBC-BC8F-4822-B239-3899A5CCBD03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4251B8B-3D23-4F55-A576-9C850536CF34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4251B8B-3D23-4F55-A576-9C850536CF34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4251B8B-3D23-4F55-A576-9C850536CF34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4251B8B-3D23-4F55-A576-9C850536CF34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26B19805-C409-4C54-8543-2D58002C307D}
+	EndGlobalSection
+EndGlobal
