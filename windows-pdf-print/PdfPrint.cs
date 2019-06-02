@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -107,9 +108,7 @@ namespace windows_pdf_print
           ref dummyArg
           );
 
-        /// To overcome OS disk flushing , we wait some time for PDF to appear on disk
-        if (!SpinWait.SpinUntil(() => File.Exists(outFile), 1000))
-          throw new TimeoutException("Output file did not exist in timely manner");
+        this.WaitForPrinterToComplete(inFile);
       }
       finally
       {
@@ -137,6 +136,30 @@ namespace windows_pdf_print
         .OfType<string>()
         .Where(printer => printer == this.pdfPrinterName)
         .FirstOrDefault();
+    }
+
+    private void WaitForPrinterToComplete(string inFile)
+    {
+      var filename = new FileInfo(inFile).Name;
+
+      using (var printServer = new PrintServer())
+      {
+        var queue = printServer.GetPrintQueue(this.pdfPrinterName);
+        while (true)
+        {
+          queue.Refresh();
+
+          /// checking whether our file is still in queue
+          if (
+            0 == queue
+            .GetPrintJobInfoCollection()
+            .Count(job => job.Name == $"Microsoft Word - {filename }")
+            )
+            break;
+
+          Thread.Sleep(100);
+        }
+      }
     }
   }
 }
