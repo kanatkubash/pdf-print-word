@@ -5,6 +5,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Printing;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -109,12 +110,35 @@ namespace windows_pdf_print
           );
 
         this.WaitForPrinterToComplete(inFile);
+        this.WaitForFileToFree(outFile);
       }
       finally
       {
         /// graceful closing document
         if (document != null)
           document.Close(ref dummyArg, ref dummyArg, ref dummyArg);
+      }
+    }
+
+    /// <summary>
+    /// Waits for file to free
+    /// </summary>
+    /// <param name="inFile"></param>
+    [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+    private void WaitForFileToFree(string inFile)
+    {
+      while (true)
+      {
+        try
+        {
+          using (var file = File.Open(inFile, FileMode.Open, FileAccess.ReadWrite))
+          { }
+          break;
+        }
+        catch (IOException e)
+        {
+          Thread.Sleep(10);
+        }
       }
     }
 
@@ -153,7 +177,7 @@ namespace windows_pdf_print
           if (
             0 == queue
             .GetPrintJobInfoCollection()
-            .Count(job => job.Name == $"Microsoft Word - {filename }")
+            .Count(job => job.Name.Contains(filename))
             )
             break;
 
